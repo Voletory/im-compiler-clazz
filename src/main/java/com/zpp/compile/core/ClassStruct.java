@@ -1,4 +1,9 @@
-package com.zpp.compile;
+package com.zpp.compile.core;
+
+import com.sun.tools.javac.util.Assert;
+import com.zpp.compile.ClassStructHold;
+import com.zpp.compile.Resource;
+import com.zpp.compile.common.ByteUtils;
 
 /**
  * @author steven.zhu 2020/3/27 12:30.
@@ -50,7 +55,32 @@ package com.zpp.compile;
  */
 public final class ClassStruct {
 
-    private Long length;
+    private Resource resource;
 
+    ClassStructHold magic;
+
+    ClassStructHold minorVersion;
+
+    ClassStructHold major_version;
+
+    ClassStructHold constantPool;
+
+    ClassStructHold access_flags;
+
+    ClassStructHold thisClazz;
+
+    ClassStructHold superClazz;
+
+    ClassStructHold interfaces;
+
+    ClassStructHold fields;
+
+    ClassStructHold methods;
+
+    ClassStructHold attributes;
+
+     public void setResource(Resource resource) {
+        this.resource = resource;
+     }
 
 }
