@@ -32,12 +32,16 @@ public class ConstantPoolResolve extends ClassStructHold {
         // 数量为count - 1
         constantPoolSet = new ConstantPoolUnit[constantPoolCount - 1];
         for (int i = 0; i < constantPoolCount - 1; i++) {
-            constantPoolSet[i] = createConstantPool(classPathReader);
+            constantPoolSet[i] = createConstantPool(classPathReader, this);
         }
     }
 
-    private ConstantPoolUnit createConstantPool(ClassPathReader classPathReader) {
-        return new ConstantPoolUnitDelegate().resolve(classPathReader);
+    private ConstantPoolUnit createConstantPool(ClassPathReader classPathReader, ConstantPoolResolve constantPoolResolve) {
+        return new ConstantPoolUnitDelegate().resolve(classPathReader, constantPoolResolve);
+    }
+
+    public Object getConstantValue(Integer index) {
+        return constantPoolSet[index - 1].constantValue();
     }
 
     @Override

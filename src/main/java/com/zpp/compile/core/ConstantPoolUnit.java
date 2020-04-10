@@ -4,10 +4,12 @@ package com.zpp.compile.core;
  * @author steven.zhu 2020/4/9 12:12.
  * @类描述：
  */
-public class ConstantPoolUnit {
+public abstract class ConstantPoolUnit<T> {
     private Integer tag;
     private String constantPoolType;
     private String description;
+    private ConstantPoolResolve constantPoolResolve;
+
 
     public ConstantPoolUnit(Integer tag,String constantPoolType,String description) {
         this.tag = tag;
@@ -37,5 +39,17 @@ public class ConstantPoolUnit {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public abstract Object constantValue();
+
+    public abstract void fullValue(T value);
+
+    public void setConstantPoolResolve(ConstantPoolResolve constantPoolResolve) {
+        this.constantPoolResolve = constantPoolResolve;
+    }
+
+    public ConstantPoolResolve getConstantPoolResolve() {
+        return constantPoolResolve;
     }
 }

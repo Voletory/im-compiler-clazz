@@ -7,11 +7,13 @@ import java.util.Map;
  * @author steven.zhu 2020/4/9 12:22.
  * @类描述：
  */
-public class ConstantPoolUnitResolveSelector {
+public abstract class ConstantPoolUnitResolveSelector {
 
-    private Map<Integer, ConstantPoolUnitResolve> ConstantPoolResolveHold = new HashMap<>();
+    public abstract void init();
 
     public ConstantPoolUnitResolve selector(Integer tag) {
-        return ConstantPoolResolveHold.get(tag);
+        return doSelector(tag);
     }
+
+    public abstract ConstantPoolUnitResolve doSelector(Integer tag);
 }

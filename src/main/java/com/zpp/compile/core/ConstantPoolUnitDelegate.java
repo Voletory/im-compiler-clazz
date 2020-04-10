@@ -1,6 +1,7 @@
 package com.zpp.compile.core;
 
 import com.zpp.compile.ClassPathReader;
+import com.zpp.compile.common.Assert;
 import com.zpp.compile.common.ByteUtils;
 
 /**
@@ -9,11 +10,20 @@ import com.zpp.compile.common.ByteUtils;
  */
 public class ConstantPoolUnitDelegate {
 
-    private ConstantPoolUnitResolveSelector constantPoolUnitResolveSelector;
+    /**
+     *  默认 常量池选择器 可修改
+     */
+    private ConstantPoolUnitResolveSelector constantPoolUnitResolveSelector = new DefaultConstantPoolUnitResolveSelector();
 
-    public ConstantPoolUnit resolve(ClassPathReader classPathReader) {
+
+    public void setConstantPoolUnitResolveSelector(ConstantPoolUnitResolveSelector selector) {
+        Assert.notNull(selector,"select not be null");
+        constantPoolUnitResolveSelector = selector;
+    }
+
+    public ConstantPoolUnit resolve(ClassPathReader classPathReader,ConstantPoolResolve constantPoolResolve) {
         byte[] tagByte = classPathReader.allocByteResource(1);
         Integer tag = ByteUtils.parseByteArrayToInteger(tagByte);
-        return constantPoolUnitResolveSelector.selector(tag).decode(classPathReader);
+        return constantPoolUnitResolveSelector.selector(tag).decode(classPathReader,constantPoolResolve);
     }
 }

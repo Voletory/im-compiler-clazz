@@ -30,4 +30,5 @@ public abstract class ClassStructHold extends AbstractDecodeResolve {
     }
 
     protected abstract void propertyClassStruce(ClassStruct classStruct);
+
 }

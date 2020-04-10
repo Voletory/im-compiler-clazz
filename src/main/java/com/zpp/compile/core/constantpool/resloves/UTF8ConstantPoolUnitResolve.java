@@ -10,18 +10,22 @@ import com.zpp.compile.core.constantpool.UTF8ConstantPoolUnit;
  * @author steven.zhu 2020/4/9 12:34.
  * @类描述：
  */
-public class UTF8ConstantPoolUnitResolve implements ConstantPoolUnitResolve {
+public class UTF8ConstantPoolUnitResolve implements ConstantPoolUnitResolve<String> {
 
-    private UTF8ConstantPoolUnit utf8ConstantPoolUnit = new UTF8ConstantPoolUnit(1, "CONSTANT_Utf8_info", "UTF-8编码的字符串");
+    private ConstantPoolUnit utf8ConstantPoolUnit = new UTF8ConstantPoolUnit(1, "CONSTANT_Utf8_info", "UTF-8编码的字符串");
 
     @Override
-    public ConstantPoolUnit decode(ClassPathReader classPathReader) {
+    public ConstantPoolUnit getConstantUnit() {
+        return utf8ConstantPoolUnit;
+    }
+
+    @Override
+    public String  doDecode(ClassPathReader classPathReader) {
         byte[] constantValueLengthByte = classPathReader.allocByteResource(2);
         Integer constantValueLength = ByteUtils.parseByteArrayToInteger(constantValueLengthByte);
         byte[] constantValueByte = classPathReader.allocByteResource(constantValueLength);
         String constantPoolValue = resolveConstantPoolValue(constantValueByte);
-        utf8ConstantPoolUnit.setConstantValue(constantPoolValue);
-        return utf8ConstantPoolUnit;
+        return constantPoolValue;
     }
 
     /**
@@ -39,9 +43,12 @@ public class UTF8ConstantPoolUnitResolve implements ConstantPoolUnitResolve {
             if ((constantByte[i] & 0xFF) < 128) {
                 constantValueBuilder.append((char) constantByte[i]);
             } else if ((constantByte[i] & 0xFF) < 2048) {
-//                constantValueBuilder.append();
+                constantValueBuilder.append(new String(constantByte, i, ++i));
+            } else {
+                constantValueBuilder.append(new String(constantByte, i, i + 2));
+                i += 2;
             }
         }
-        return null;
+        return constantValueBuilder.toString();
     }
 }
