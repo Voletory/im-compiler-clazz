@@ -3,7 +3,8 @@ package com.zpp.compile.core;
 import com.zpp.compile.ClassPathReader;
 import com.zpp.compile.ClassStructHold;
 import com.zpp.compile.common.ByteUtils;
-import org.omg.PortableInterceptor.INACTIVE;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static com.zpp.compile.core.ClassStructName.MINOR_VERSION;
 
@@ -13,6 +14,7 @@ import static com.zpp.compile.core.ClassStructName.MINOR_VERSION;
  */
 public class MinorVersionResolve extends ClassStructHold {
 
+    private Logger logger = LoggerFactory.getLogger(MinorVersionResolve.class);
     public MinorVersionResolve() {
         setName(MINOR_VERSION);
     }
@@ -21,7 +23,7 @@ public class MinorVersionResolve extends ClassStructHold {
     protected void doDecode(ClassPathReader classPathReader) {
         byte[] bytes = classPathReader.allocByteResource(2);
         Integer minorVersion = ByteUtils.parseByteArrayToInteger(bytes);
-        System.out.println("MINOR_VERSION:" + minorVersion);
+        logger.info("MINOR_VERSION:" + minorVersion);
         fullResource(bytes);
     }
 

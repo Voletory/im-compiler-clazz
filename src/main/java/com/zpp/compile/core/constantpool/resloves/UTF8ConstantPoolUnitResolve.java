@@ -25,7 +25,7 @@ public class UTF8ConstantPoolUnitResolve implements ConstantPoolUnitResolve<Stri
         Integer constantValueLength = ByteUtils.parseByteArrayToInteger(constantValueLengthByte);
         byte[] constantValueByte = classPathReader.allocByteResource(constantValueLength);
         String constantPoolValue = resolveConstantPoolValue(constantValueByte);
-        System.out.println("UTF8 constantValue" + constantPoolValue);
+        logger.info("UTF8 constantValue" + constantPoolValue);
         return constantPoolValue;
     }
 

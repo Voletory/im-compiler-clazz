@@ -23,6 +23,7 @@ public class StringConstantPoolUnitResolve implements ConstantPoolUnitResolve<In
     public Integer doDecode(ClassPathReader classPathReader) {
         byte[] bytes = classPathReader.allocByteResource(2);
         Integer index = ByteUtils.parseByteArrayToInteger(bytes);
+        logger.info("String index:" + index);
         return index;
     }
 }

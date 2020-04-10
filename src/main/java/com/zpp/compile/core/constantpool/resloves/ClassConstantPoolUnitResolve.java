@@ -6,12 +6,15 @@ import com.zpp.compile.core.ConstantPoolUnit;
 import com.zpp.compile.core.ConstantPoolUnitResolve;
 import com.zpp.compile.core.constantpool.ClassConstantPoolUnit;
 import com.zpp.compile.core.constantpool.ConstantPoolType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author steven.zhu 2020/4/10 13:23.
  * @类描述：
  */
 public class ClassConstantPoolUnitResolve implements ConstantPoolUnitResolve<Integer> {
+
 
     private ConstantPoolUnit constantPoolUnit = new ClassConstantPoolUnit(ConstantPoolType.CLASS_INFO,"CONSTANT_CLASS_INFO","class索引");
 
@@ -24,7 +27,7 @@ public class ClassConstantPoolUnitResolve implements ConstantPoolUnitResolve<Int
     public Integer doDecode(ClassPathReader classPathReader) {
         byte[] bytes = classPathReader.allocByteResource(2);
         Integer index = ByteUtils.parseByteArrayToInteger(bytes);
-        System.out.println("Class index:" + index);
+        logger.info("Class index:" + index);
         return index;
     }
 }
