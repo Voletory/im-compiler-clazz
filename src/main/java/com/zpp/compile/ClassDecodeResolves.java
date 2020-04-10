@@ -18,6 +18,7 @@ public class ClassDecodeResolves {
         RESOLVES_LIST.add("com.zpp.compile.core.MagicClazzResolve");
         RESOLVES_LIST.add("com.zpp.compile.core.MinorVersionResolve");
         RESOLVES_LIST.add("com.zpp.compile.core.MajorVersionResolve");
+        RESOLVES_LIST.add("com.zpp.compile.core.ConstantPoolResolve");
     }
 
     private volatile Integer CURRENT_INDEX = 0;

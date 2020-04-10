@@ -23,6 +23,7 @@ public class DoubleConstantPoolUnitResolve implements ConstantPoolUnitResolve<Do
     public Double doDecode(ClassPathReader classPathReader) {
         byte[] doubleByteArray = classPathReader.allocByteResource(8);
         Double constantValue = ByteUtils.parseByteArrayToDouble(doubleByteArray);
+        System.out.println("Double constant:" + constantValue);
         return constantValue;
     }
 }

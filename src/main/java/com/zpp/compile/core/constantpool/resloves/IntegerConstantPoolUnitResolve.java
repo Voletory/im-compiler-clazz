@@ -23,6 +23,7 @@ public class IntegerConstantPoolUnitResolve implements ConstantPoolUnitResolve<I
     public Integer doDecode(ClassPathReader classPathReader) {
         byte[] bytes = classPathReader.allocByteResource(4);
         Integer constantValue = ByteUtils.parseByteArrayToInteger(bytes);
+        System.out.println("Integer constant:" + constantValue);
         return constantValue;
     }
 

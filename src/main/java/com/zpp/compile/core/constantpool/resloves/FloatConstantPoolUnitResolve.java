@@ -12,7 +12,7 @@ import com.zpp.compile.core.constantpool.FloatConstantPoolUnit;
  */
 public class FloatConstantPoolUnitResolve implements ConstantPoolUnitResolve<Float> {
 
-    private ConstantPoolUnit FloatConstantPoolUnit = new FloatConstantPoolUnit(4,"CONSTANT_FLOAT_INFO","浮点型字面量，高位在前");
+    private ConstantPoolUnit FloatConstantPoolUnit = new FloatConstantPoolUnit(4, "CONSTANT_FLOAT_INFO", "浮点型字面量，高位在前");
 
     @Override
     public ConstantPoolUnit getConstantUnit() {
@@ -23,6 +23,7 @@ public class FloatConstantPoolUnitResolve implements ConstantPoolUnitResolve<Flo
     public Float doDecode(ClassPathReader classPathReader) {
         byte[] floatValue = classPathReader.allocByteResource(4);
         Float constantFloat = ByteUtils.parseByteArrayToFloat(floatValue);
+        System.out.println("Float constant:" + constantFloat);
         return constantFloat;
     }
 

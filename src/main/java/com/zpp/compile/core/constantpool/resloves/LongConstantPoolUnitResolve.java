@@ -23,6 +23,7 @@ public class LongConstantPoolUnitResolve implements ConstantPoolUnitResolve<Long
     public Long doDecode(ClassPathReader classPathReader) {
         byte[] longByteArray = classPathReader.allocByteResource(8);
         Long longValue = ByteUtils.parseByteArrayToLong(longByteArray);
+        System.out.println("Long constant:" + longValue);
         return longValue;
     }
 }
