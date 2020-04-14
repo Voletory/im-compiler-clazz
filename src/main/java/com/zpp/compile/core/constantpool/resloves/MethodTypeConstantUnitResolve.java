@@ -24,6 +24,7 @@ public class MethodTypeConstantUnitResolve implements ConstantPoolUnitResolve<In
     public Integer doDecode(ClassPathReader classPathReader) {
         byte[] indexByteArray = classPathReader.allocByteResource(2);
         Integer index = ByteUtils.parseByteArrayToInteger(indexByteArray);
+        logger.info("method type index: {}",index);
         return index;
     }
 }

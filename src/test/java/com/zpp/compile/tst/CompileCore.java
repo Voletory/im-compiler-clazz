@@ -15,7 +15,7 @@ public class CompileCore {
     static int magic = 0xcafebabe;  //202
     // 000000 00000000 11001010
     public static void main(String[] args) throws IOException {
-      ClassPathFactory s = new ClassPathFactory(new ClassPathReader("PP.class"));
+      ClassPathFactory s = new ClassPathFactory(new ClassPathReader("AbstractResource.class"));
     }
 
 }

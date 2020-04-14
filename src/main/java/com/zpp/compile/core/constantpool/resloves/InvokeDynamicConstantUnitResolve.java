@@ -29,6 +29,7 @@ public class InvokeDynamicConstantUnitResolve implements ConstantPoolUnitResolve
         Integer nameAndType = ByteUtils.parseByteArrayToInteger(nameAndTypeIndex);
         dynamicConstantBean.setBoostrapIndex(bootStrap);
         dynamicConstantBean.setNameAndTypeIndex(nameAndType);
+        logger.info("invoke dynamic bootstrap: {} ,nameAndType: {}" ,bootStrap,nameAndType);
         return dynamicConstantBean;
     }
 }

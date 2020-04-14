@@ -17,7 +17,7 @@ public class ConstantPoolMultiIndexUnit extends ConstantPoolMultiUnit<List<Integ
 
     @Override
     public Object constantValue() {
-        throw new RuntimeException("该方法不能被调用");
+        return indexs;
     }
 
     @Override
@@ -26,6 +26,6 @@ public class ConstantPoolMultiIndexUnit extends ConstantPoolMultiUnit<List<Integ
     }
 
     public Object constantValue(Integer index) {
-        return getConstantPoolResolve().getConstantValue(indexs.get(index));
+        return indexs;
     }
 }

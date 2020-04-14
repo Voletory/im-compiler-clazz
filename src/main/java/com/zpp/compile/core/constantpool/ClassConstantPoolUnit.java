@@ -16,7 +16,7 @@ public class ClassConstantPoolUnit extends ConstantPoolUnit<Integer> {
 
     @Override
     public Object constantValue() {
-        return getConstantPoolResolve().getConstantValue(index);
+        return index;
     }
 
     @Override

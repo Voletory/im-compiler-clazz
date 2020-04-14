@@ -27,6 +27,7 @@ public class MethodHandleConstantPoolUnitResolve implements ConstantPoolUnitReso
         Integer methodKind = ByteUtils.parseByteArrayToInteger(methodHandleKindByte);
         byte[] methodHandleConstantIndexByte = classPathReader.allocByteResource(2);
         Integer methodHandleConstantIndex = ByteUtils.parseByteArrayToInteger(methodHandleConstantIndexByte);
+        logger.info("method handle kind: {} , methodHandle constant index: {}",methodKind,methodHandleConstantIndex);
         return new MethodHandleInfo(methodKind, methodHandleConstantIndex);
     }
 }

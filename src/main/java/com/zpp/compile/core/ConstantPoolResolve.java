@@ -3,8 +3,11 @@ package com.zpp.compile.core;
 import com.zpp.compile.ClassPathReader;
 import com.zpp.compile.ClassStructHold;
 import com.zpp.compile.common.ByteUtils;
+import com.zpp.compile.core.constantpool.ConstantPoolMultiIndexUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * @author steven.zhu 2020/4/8 13:35.
@@ -25,7 +28,7 @@ public class ConstantPoolResolve extends ClassStructHold {
     private ConstantPoolUnitDelegate constantPoolUnitDelegate;
 
     public ConstantPoolResolve() {
-        setName(ClassStructName.MAJOR_VERSION);
+        setName(ClassStructName.CONSTANT_POOL);
     }
 
     @Override
@@ -41,10 +44,42 @@ public class ConstantPoolResolve extends ClassStructHold {
             // 特殊包含多个constant_index的需要特殊处理
             constantPoolSet[i] = createConstantPool(classPathReader, this);
         }
+        // prepareConstantPoolValue
+//        logger.debug("----------------------constant value set ---------------------------");
+//        for (int i = 0; i < constantPoolCount - 1; i++) {
+//            ConstantPoolUnit constantPoolUnit = constantPoolSet[i];
+//            Object o = constantPoolUnit.constantValue();
+//            String message = "";
+//            if (o instanceof Integer) {
+//                message += "#" + o + "   //";
+//            }
+//            message += decodeConstantValue(o);
+//            logger.debug("constant #{} = {}            " + message, i + 1, constantPoolUnit.getConstantPoolType());
+//        }
+    }
+
+    private String decodeConstantValue(Object value) {
+        if (value instanceof Integer) {
+            ConstantPoolUnit constant = getConstant((Integer) value);
+            return decodeConstantValue(constant.constantValue());
+        } else if (value instanceof String) {
+            return (String) value;
+        } else if (value instanceof ConstantPoolMultiIndexUnit) {
+            Object listObject = ((ConstantPoolMultiIndexUnit) value).constantValue();
+            List<Integer> indexs = (List<Integer>) listObject;
+            String indexValue = "";
+            String valueString = "";
+            for (Integer index : indexs) {
+                indexValue += "#" + index + ":";
+                valueString += decodeConstantValue(index) + ":";
+            }
+            return indexValue + valueString;
+        } else {
+            return "ssss";
+        }
     }
 
     private ConstantPoolUnit createConstantPool(ClassPathReader classPathReader, ConstantPoolResolve constantPoolResolve) {
-
         return loadConstantDelegate().resolve(classPathReader, constantPoolResolve);
     }
 

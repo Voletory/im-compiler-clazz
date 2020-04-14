@@ -1,6 +1,5 @@
 package com.zpp.compile.core.constantpool;
 
-import com.sun.tools.javac.util.Assert;
 import com.zpp.compile.core.ConstantPoolUnit;
 
 /**
@@ -20,9 +19,7 @@ public class MethodTypeConstantPoolUnit extends ConstantPoolUnit<Integer> {
 
     @Override
     public Object constantValue() {
-        ConstantPoolUnit constant = getConstantPoolResolve().getConstant(index);
-        Assert.check(constant.getTag().equals(ConstantPoolType.UTF_8_INFO), "METHOD TYPE CONSTANT TYPE's INDEX MUST BE INDEX OF UTF-8");
-        return constant.constantValue();
+        return index;
     }
 
     @Override
