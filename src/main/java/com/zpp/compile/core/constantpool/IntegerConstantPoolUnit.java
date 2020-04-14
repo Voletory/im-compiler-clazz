@@ -6,7 +6,7 @@ import com.zpp.compile.core.ConstantPoolUnit;
  * @author steven.zhu 2020/4/9 18:59.
  * @类描述：
  */
-public class IntegerConstantPoolUnit extends ConstantPoolUnit<Integer> {
+public class IntegerConstantPoolUnit extends ConstantPoolUnit<Integer> implements SimpleConstantPoolUnit {
 
     private Integer constantValue;
 

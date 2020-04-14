@@ -1,4 +1,4 @@
-package com.zpp.compile.core.constantpool;
+package com.zpp.compile.core.constantpool.bean;
 
 /**
  * @author steven.zhu 2020/4/14 12:20.

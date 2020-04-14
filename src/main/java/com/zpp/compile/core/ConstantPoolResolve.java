@@ -1,12 +1,16 @@
 package com.zpp.compile.core;
 
+import com.sun.deploy.util.StringUtils;
 import com.zpp.compile.ClassPathReader;
 import com.zpp.compile.ClassStructHold;
 import com.zpp.compile.common.ByteUtils;
-import com.zpp.compile.core.constantpool.ConstantPoolMultiIndexUnit;
+import com.zpp.compile.core.constantpool.bean.ConstantPoolMultiIndexUnit;
+import com.zpp.compile.core.constantpool.bean.DynamicConstantBean;
+import com.zpp.compile.core.constantpool.bean.MethodHandleInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,37 +49,39 @@ public class ConstantPoolResolve extends ClassStructHold {
             constantPoolSet[i] = createConstantPool(classPathReader, this);
         }
         // prepareConstantPoolValue
-//        logger.debug("----------------------constant value set ---------------------------");
-//        for (int i = 0; i < constantPoolCount - 1; i++) {
-//            ConstantPoolUnit constantPoolUnit = constantPoolSet[i];
-//            Object o = constantPoolUnit.constantValue();
-//            String message = "";
-//            if (o instanceof Integer) {
-//                message += "#" + o + "   //";
-//            }
-//            message += decodeConstantValue(o);
-//            logger.debug("constant #{} = {}            " + message, i + 1, constantPoolUnit.getConstantPoolType());
-//        }
+        logger.debug("----------------------constant value set ---------------------------");
+        for (int i = 0; i < constantPoolCount - 1; i++) {
+            ConstantPoolUnit constantPoolUnit = constantPoolSet[i];
+            Object o = constantPoolUnit.constantValue();
+            String message = "";
+            if (o instanceof Integer) {
+                message += "#" + o + "   //";
+            } else if (o instanceof ConstantPoolMultiIndexUnit) {
+                List<Integer> listObject = ((ConstantPoolMultiIndexUnit) o).constantValue();
+                for (Integer integer : listObject) {
+                    message += "#" + integer + ":";
+                }
+                message = message.substring(0, message.length() - 1);
+            }
+            message += "         " + decodeConstantValue(constantPoolUnit.constantValue());
+            logger.debug("constant #{} = {}            " + message, i + 1, constantPoolUnit.getConstantPoolType());
+        }
     }
 
     private String decodeConstantValue(Object value) {
-        if (value instanceof Integer) {
-            ConstantPoolUnit constant = getConstant((Integer) value);
-            return decodeConstantValue(constant.constantValue());
-        } else if (value instanceof String) {
-            return (String) value;
+        if (value instanceof MethodHandleInfo) {
+            return decodeConstantValue(getConstant(((MethodHandleInfo) value).getReferenceIndex()).constantValue());
+        } else if (value instanceof DynamicConstantBean) {
+            return decodeConstantValue(getConstant(((DynamicConstantBean) value).getNameAndTypeIndex()).constantValue());
         } else if (value instanceof ConstantPoolMultiIndexUnit) {
-            Object listObject = ((ConstantPoolMultiIndexUnit) value).constantValue();
-            List<Integer> indexs = (List<Integer>) listObject;
-            String indexValue = "";
-            String valueString = "";
-            for (Integer index : indexs) {
-                indexValue += "#" + index + ":";
-                valueString += decodeConstantValue(index) + ":";
+            List<Integer> idList = ((ConstantPoolMultiIndexUnit) value).constantValue();
+            List<String> message = new ArrayList<>();
+            for (Integer id : idList) {
+                message.add(decodeConstantValue(getConstant(id).constantValue()));
             }
-            return indexValue + valueString;
+            return StringUtils.join(message, ":");
         } else {
-            return "ssss";
+            return value.toString();
         }
     }
 

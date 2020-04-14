@@ -1,4 +1,4 @@
-package com.zpp.compile.core.constantpool;
+package com.zpp.compile.core.constantpool.bean;
 
 import com.sun.tools.javac.util.Assert;
 

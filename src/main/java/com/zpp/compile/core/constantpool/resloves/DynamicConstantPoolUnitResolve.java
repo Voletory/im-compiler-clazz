@@ -5,7 +5,7 @@ import com.zpp.compile.common.ByteUtils;
 import com.zpp.compile.core.ConstantPoolUnit;
 import com.zpp.compile.core.ConstantPoolUnitResolve;
 import com.zpp.compile.core.constantpool.ConstantPoolType;
-import com.zpp.compile.core.constantpool.DynamicConstantBean;
+import com.zpp.compile.core.constantpool.bean.DynamicConstantBean;
 import com.zpp.compile.core.constantpool.DynamicConstantPoolUnit;
 
 /**

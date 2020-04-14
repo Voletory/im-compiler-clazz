@@ -6,7 +6,7 @@ import com.zpp.compile.core.ConstantPoolUnit;
  * @author steven.zhu 2020/4/10 13:00.
  * @类描述：
  */
-public class DoubleConstantPoolUnit extends ConstantPoolUnit<Double> {
+public class DoubleConstantPoolUnit extends ConstantPoolUnit<Double> implements SimpleConstantPoolUnit {
 
     private Double constantValue;
 

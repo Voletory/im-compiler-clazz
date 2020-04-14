@@ -1,6 +1,8 @@
 package com.zpp.compile.core.constantpool;
 
 import com.zpp.compile.core.ConstantPoolUnit;
+import com.zpp.compile.core.constantpool.bean.ConstantPoolMultiIndexUnit;
+import com.zpp.compile.core.constantpool.bean.ConstantPoolMultiUnit;
 
 import java.util.List;
 

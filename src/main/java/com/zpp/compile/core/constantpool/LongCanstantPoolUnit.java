@@ -6,7 +6,7 @@ import com.zpp.compile.core.ConstantPoolUnit;
  * @author steven.zhu 2020/4/10 12:46.
  * @类描述：
  */
-public class LongCanstantPoolUnit extends ConstantPoolUnit<Long> {
+public class LongCanstantPoolUnit extends ConstantPoolUnit<Long> implements SimpleConstantPoolUnit {
 
     private Long constantValue;
 

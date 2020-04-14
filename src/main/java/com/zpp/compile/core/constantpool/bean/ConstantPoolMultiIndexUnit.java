@@ -1,4 +1,4 @@
-package com.zpp.compile.core.constantpool;
+package com.zpp.compile.core.constantpool.bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class ConstantPoolMultiIndexUnit extends ConstantPoolMultiUnit<List<Integ
     }
 
     @Override
-    public Object constantValue() {
+    public List<Integer> constantValue() {
         return indexs;
     }
 

@@ -6,7 +6,7 @@ import com.zpp.compile.core.ConstantPoolUnit;
  * @author steven.zhu 2020/4/9 12:28.
  * @类描述：
  */
-public class UTF8ConstantPoolUnit extends ConstantPoolUnit<String> {
+public class UTF8ConstantPoolUnit extends ConstantPoolUnit<String> implements SimpleConstantPoolUnit {
     private String constantValue;
 
     public UTF8ConstantPoolUnit(Integer tag, String constantPoolType, String description) {

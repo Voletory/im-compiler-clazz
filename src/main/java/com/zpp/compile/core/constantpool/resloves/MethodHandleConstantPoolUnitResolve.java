@@ -6,7 +6,7 @@ import com.zpp.compile.core.ConstantPoolUnit;
 import com.zpp.compile.core.ConstantPoolUnitResolve;
 import com.zpp.compile.core.constantpool.ConstantPoolType;
 import com.zpp.compile.core.constantpool.MethodHandleConstantUnit;
-import com.zpp.compile.core.constantpool.MethodHandleInfo;
+import com.zpp.compile.core.constantpool.bean.MethodHandleInfo;
 
 /**
  * @author steven.zhu 2020/4/13 12:56.
