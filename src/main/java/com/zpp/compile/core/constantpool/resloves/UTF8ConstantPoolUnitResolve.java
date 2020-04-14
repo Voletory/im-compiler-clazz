@@ -6,6 +6,8 @@ import com.zpp.compile.core.ConstantPoolUnit;
 import com.zpp.compile.core.ConstantPoolUnitResolve;
 import com.zpp.compile.core.constantpool.UTF8ConstantPoolUnit;
 
+import java.nio.charset.Charset;
+
 /**
  * @author steven.zhu 2020/4/9 12:34.
  * @类描述：
@@ -25,7 +27,7 @@ public class UTF8ConstantPoolUnitResolve implements ConstantPoolUnitResolve<Stri
         Integer constantValueLength = ByteUtils.parseByteArrayToInteger(constantValueLengthByte);
         byte[] constantValueByte = classPathReader.allocByteResource(constantValueLength);
         String constantPoolValue = resolveConstantPoolValue(constantValueByte);
-        logger.info("UTF8 constantValue" + constantPoolValue);
+        logger.info("UTF8 constantValue:  " + constantPoolValue);
         return constantPoolValue;
     }
 
@@ -39,17 +41,8 @@ public class UTF8ConstantPoolUnitResolve implements ConstantPoolUnitResolve<Stri
      * @return
      */
     public String resolveConstantPoolValue(byte[] constantByte) {
-        StringBuilder constantValueBuilder = new StringBuilder();
-        for (int i = 0; i < constantByte.length; i++) {
-            if ((constantByte[i] & 0xFF) < 128) {
-                constantValueBuilder.append((char) constantByte[i]);
-            } else if ((constantByte[i] & 0xFF) < 2048) {
-                constantValueBuilder.append(new String(constantByte, i, ++i));
-            } else {
-                constantValueBuilder.append(new String(constantByte, i, i + 2));
-                i += 2;
-            }
-        }
-        return constantValueBuilder.toString();
+        String resolveConstantValue = new String(constantByte,Charset.forName("UTF-8"));
+        return resolveConstantValue;
     }
+
 }

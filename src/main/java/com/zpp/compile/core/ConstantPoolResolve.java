@@ -3,6 +3,8 @@ package com.zpp.compile.core;
 import com.zpp.compile.ClassPathReader;
 import com.zpp.compile.ClassStructHold;
 import com.zpp.compile.common.ByteUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author steven.zhu 2020/4/8 13:35.
@@ -10,6 +12,7 @@ import com.zpp.compile.common.ByteUtils;
  */
 public class ConstantPoolResolve extends ClassStructHold {
 
+    private Logger logger = LoggerFactory.getLogger(ConstantPoolResolve.class);
     /**
      * 常量池的计数值是从1而不是0开始的，设计者将第0项常量空出来是有特殊考虑的，
      * 这样做的目在于，如果后面某些指向常量池的索引值的数据在特定情况下需要表达
@@ -18,6 +21,8 @@ public class ConstantPoolResolve extends ClassStructHold {
     private Integer constantPoolCount;
 
     private ConstantPoolUnit[] constantPoolSet;
+
+    private ConstantPoolUnitDelegate constantPoolUnitDelegate;
 
     public ConstantPoolResolve() {
         setName(ClassStructName.MAJOR_VERSION);
@@ -31,17 +36,35 @@ public class ConstantPoolResolve extends ClassStructHold {
         this.constantPoolCount = constantPoolCount;
         // 数量为count - 1
         constantPoolSet = new ConstantPoolUnit[constantPoolCount - 1];
+        logger.info("constant pool total:" + (constantPoolCount - 1));
         for (int i = 0; i < constantPoolCount - 1; i++) {
+            // 特殊包含多个constant_index的需要特殊处理
             constantPoolSet[i] = createConstantPool(classPathReader, this);
         }
     }
 
     private ConstantPoolUnit createConstantPool(ClassPathReader classPathReader, ConstantPoolResolve constantPoolResolve) {
-        return new ConstantPoolUnitDelegate().resolve(classPathReader, constantPoolResolve);
+
+        return loadConstantDelegate().resolve(classPathReader, constantPoolResolve);
+    }
+
+    private ConstantPoolUnitDelegate loadConstantDelegate() {
+        if (constantPoolUnitDelegate == null) {
+            synchronized (this) {
+                if (this.constantPoolUnitDelegate == null) {
+                    constantPoolUnitDelegate = new ConstantPoolUnitDelegate();
+                }
+            }
+        }
+        return constantPoolUnitDelegate;
     }
 
     public Object getConstantValue(Integer index) {
-        return constantPoolSet[index - 1].constantValue();
+        return getConstant(index).constantValue();
+    }
+
+    public ConstantPoolUnit getConstant(Integer index) {
+        return constantPoolSet[index - 1];
     }
 
     @Override

@@ -4,17 +4,16 @@ import com.zpp.compile.ClassPathReader;
 import com.zpp.compile.common.ByteUtils;
 import com.zpp.compile.core.ConstantPoolUnit;
 import com.zpp.compile.core.ConstantPoolUnitResolve;
-import com.zpp.compile.core.constantpool.ClassConstantPoolUnit;
 import com.zpp.compile.core.constantpool.ConstantPoolType;
+import com.zpp.compile.core.constantpool.MethodHandleConstantUnit;
 
 /**
- * @author steven.zhu 2020/4/10 13:23.
+ * @author steven.zhu 2020/4/14 12:16.
  * @类描述：
  */
-public class ClassConstantPoolUnitResolve implements ConstantPoolUnitResolve<Integer> {
+public class MethodTypeConstantUnitResolve implements ConstantPoolUnitResolve<Integer> {
 
-
-    private ConstantPoolUnit constantPoolUnit = new ClassConstantPoolUnit(ConstantPoolType.CLASS_INFO,"CONSTANT_CLASS_INFO","class索引");
+    private ConstantPoolUnit constantPoolUnit = new MethodHandleConstantUnit(ConstantPoolType.METHOD_TYPE_INFO,"CONSTANT_METHOD_TYPE_INFO","方法的类型");
 
     @Override
     public ConstantPoolUnit getConstantUnit() {
@@ -23,9 +22,8 @@ public class ClassConstantPoolUnitResolve implements ConstantPoolUnitResolve<Int
 
     @Override
     public Integer doDecode(ClassPathReader classPathReader) {
-        byte[] bytes = classPathReader.allocByteResource(2);
-        Integer index = ByteUtils.parseByteArrayToInteger(bytes);
-        logger.info("Class index:" + index);
+        byte[] indexByteArray = classPathReader.allocByteResource(2);
+        Integer index = ByteUtils.parseByteArrayToInteger(indexByteArray);
         return index;
     }
 }

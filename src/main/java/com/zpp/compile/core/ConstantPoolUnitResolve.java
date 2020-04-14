@@ -13,7 +13,6 @@ public interface ConstantPoolUnitResolve<T> {
 
     Logger logger = LoggerFactory.getLogger(DoubleConstantPoolUnitResolve.class);
 
-
     ConstantPoolUnit getConstantUnit();
 
     default ConstantPoolUnit decode(ClassPathReader classPathReader, ConstantPoolResolve constantPoolResolve) {

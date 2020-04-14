@@ -1,13 +1,14 @@
 package com.zpp.compile.core;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author steven.zhu 2020/4/9 12:22.
  * @类描述：
  */
 public abstract class ConstantPoolUnitResolveSelector {
+
+    public ConstantPoolUnitResolveSelector() {
+        init();
+    }
 
     public abstract void init();
 
